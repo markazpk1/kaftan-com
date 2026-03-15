@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Coupon Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function CouponTest() {
+            const [discountAmount, setDiscountAmount] = useState(0);
+            const [totalPrice] = useState(100);
+            const shipping = 0;
+            const tax = 8;
+            const grandTotal = totalPrice + shipping + tax - discountAmount;
+
+            const applyCoupon = () => {
+                console.log('Setting discount to 10');
+                setDiscountAmount(10);
+            };
+
+            useEffect(() => {
+                console.log('discountAmount changed to:', discountAmount);
+            }, [discountAmount]);
+
+            return React.createElement('div', null, [
+                React.createElement('h2', null, 'Coupon Test'),
+                React.createElement('p', null, `Discount Amount: ${discountAmount}`),
+                React.createElement('p', null, `Grand Total: ${grandTotal}`),
+                React.createElement('button', { onClick: applyCoupon }, 'Apply $10 Discount')
+            ]);
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(CouponTest));
+    </script>
+</body>
+
+</html>
