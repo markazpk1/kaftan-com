@@ -28,7 +28,7 @@ interface Product {
   price: number;
   original_price?: number;
   images: string[];
-  badge?: "New in" | "Sold out" | "Sale";
+  badge?: "New in" | "Sold out";
   category: string;
   style?: string;
   color?: string;

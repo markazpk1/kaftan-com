@@ -40,7 +40,7 @@ const Index = () => {
     price: p.price,
     original_price: p.original_price || undefined,
     image: p.images?.[0] || "/placeholder.svg",
-    badge: p.original_price ? "Sale" : p.in_stock ? undefined : "Sold out",
+    badge: p.in_stock ? undefined : "Sold out",
     category: p.category || "",
     style: undefined,
     color: p.colors?.[0],
@@ -48,9 +48,6 @@ const Index = () => {
 
   // Get featured products
   const featuredProducts = products.filter(p => p.featured && p.in_stock).map(convertToProduct);
-  
-  // Get sale products
-  const saleProducts = products.filter(p => p.original_price && p.in_stock).map(convertToProduct);
   
   // Get new arrivals (latest products, limit to 8)
   const newArrivals = products
@@ -80,15 +77,6 @@ const Index = () => {
 
       {isEnabled("collectionBanner") && (
         <CollectionBanner content={content.collectionBanner} image={content.collectionImage} />
-      )}
-
-      {isEnabled("saleBanner") && (
-        <ProductSection
-          id="sale"
-          title="Summer Sale"
-          products={saleProducts}
-          viewAllLink="/sale"
-        />
       )}
 
       {isEnabled("about") && (
