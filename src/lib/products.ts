@@ -24,7 +24,7 @@ export const getProducts = async (): Promise<Product[]> => {
       original_price: p.original_price || undefined,
       image: p.images?.[0] || "/placeholder.svg",
       images: p.images || [],
-      badge: p.original_price ? "Sale" : p.in_stock ? undefined : "Sold out",
+      badge: p.in_stock ? undefined : "Sold out",
       category: p.category || "",
       style: undefined, // Not in database schema
       color: p.colors?.[0], // Get first color from colors array

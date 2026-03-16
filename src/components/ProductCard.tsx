@@ -15,9 +15,6 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
   const { addItem } = useCart();
   const { toggleItem, isInWishlist } = useWishlist();
   const wishlisted = isInWishlist(product.id);
-  const discount = product.original_price && product.price
-    ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
-    : 0;
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,9 +55,7 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.3 + index * 0.05 }}
               className={`absolute top-3 left-3 font-body text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 ${
-                product.badge === "Sale"
-                  ? "bg-sale text-primary-foreground"
-                  : product.badge === "Sold out"
+                product.badge === "Sold out"
                   ? "bg-charcoal text-primary-foreground"
                   : "bg-background text-foreground"
               }`}
@@ -111,14 +106,9 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
               {product.price > 0 ? `$${product.price.toFixed(2)}` : 'Price on Request'}
             </span>
             {product.original_price && product.price > 0 && (
-              <>
-                <span className="font-body text-sm text-muted-foreground line-through">
-                  ${product.original_price.toFixed(2)}
-                </span>
-                <span className="font-body text-xs text-sale font-medium">
-                  Save {discount}%
-                </span>
-              </>
+              <span className="font-body text-sm text-muted-foreground line-through">
+                ${product.original_price.toFixed(2)}
+              </span>
             )}
           </div>
         ) : (

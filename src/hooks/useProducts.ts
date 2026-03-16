@@ -9,7 +9,6 @@ interface UseProductsOptions {
 }
 
 const mapDbProductToProduct = (dbProduct: any): Product => {
-  const isOnSale = dbProduct.original_price && dbProduct.original_price > dbProduct.price;
   const isSoldOut = !dbProduct.in_stock;
 
   return {
@@ -19,7 +18,7 @@ const mapDbProductToProduct = (dbProduct: any): Product => {
     originalPrice: dbProduct.original_price ? Number(dbProduct.original_price) : undefined,
     image: dbProduct.images?.[0] || "/placeholder.svg",
     images: dbProduct.images || [],
-    badge: isSoldOut ? "Sold out" : isOnSale ? "Sale" : dbProduct.featured ? "New in" : undefined,
+    badge: isSoldOut ? "Sold out" : dbProduct.featured ? "New in" : undefined,
     category: dbProduct.category || "Uncategorized",
     style: dbProduct.description || undefined,
     color: dbProduct.colors?.[0] || undefined,

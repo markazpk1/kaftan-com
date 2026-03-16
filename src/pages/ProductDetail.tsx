@@ -60,10 +60,6 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => addItem(product, "One Size", quantity);
 
-  const discount = (product as any).originalPrice && product.price
-    ? Math.round((((product as any).originalPrice - product.price) / (product as any).originalPrice) * 100)
-    : 0;
-
   return (
     <div className="min-h-screen bg-background pb-mobile-nav">
       <AnnouncementBar />
@@ -202,14 +198,9 @@ const ProductDetail = () => {
                     {product.price > 0 ? `$${product.price.toFixed(2)}` : 'Price on Request'}
                   </span>
                   {(product as any).originalPrice && product.price > 0 && (
-                    <>
-                      <span className="font-body text-base sm:text-lg text-muted-foreground line-through">
-                        ${(product as any).originalPrice.toFixed(2)}
-                      </span>
-                      <span className="font-body text-xs bg-sale text-primary-foreground px-2 py-1">
-                        Save {discount}%
-                      </span>
-                    </>
+                    <span className="font-body text-base sm:text-lg text-muted-foreground line-through">
+                      ${(product as any).originalPrice.toFixed(2)}
+                    </span>
                   )}
                 </div>
               )}
