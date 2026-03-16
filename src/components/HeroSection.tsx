@@ -76,7 +76,7 @@ const HeroSection = ({ content, slides }: Props) => {
           initial={false}
           animate={{ opacity: i === current ? 1 : 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="absolute inset-0 w-full h-full object-cover object-top"
+          className="absolute inset-0 w-full h-full object-contain object-center bg-black"
           style={{ y }}
         />
       ))}

@@ -29,7 +29,7 @@ const CollectionBanner = ({ content, image }: Props) => {
       <motion.img
         src={bannerImage}
         alt="FashionSpectrum golden collection"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-contain object-center bg-black"
         style={{ y, scale }}
       />
       <div className="absolute inset-0 bg-charcoal/30" />
