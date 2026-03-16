@@ -80,57 +80,6 @@ const HeroSection = ({ content, slides }: Props) => {
           style={{ y }}
         />
       ))}
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/40 via-transparent to-transparent" />
-
-      <motion.div
-        className="relative h-full flex items-end pb-16 md:pb-24 px-6 md:px-16"
-        style={{ opacity }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-          className="max-w-lg"
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="font-heading text-4xl md:text-6xl lg:text-7xl font-light text-primary-foreground leading-tight mb-4"
-          >
-            {titleLine1}
-            <br />
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="font-semibold italic"
-            >
-              {titleLine2}
-            </motion.span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="font-body text-sm md:text-base text-primary-foreground/80 tracking-wide mb-8 max-w-sm"
-          >
-            {subtitle}
-          </motion.p>
-          <motion.a
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            href={ctaLink}
-            className="inline-block font-body text-xs tracking-[0.2em] uppercase bg-primary-foreground text-charcoal px-8 py-4 hover:bg-gold hover:text-primary-foreground transition-all duration-500"
-          >
-            {ctaText}
-          </motion.a>
-        </motion.div>
-      </motion.div>
-
       {/* Slide indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
         {activeSlides.map((_, i) => (
