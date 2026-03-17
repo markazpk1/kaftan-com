@@ -1,6 +1,6 @@
 import CatalogPage from "@/components/CatalogPage";
 import { getAllProducts } from "@/lib/productUtils";
-import heroBanner from "@/assets/hero-banner.jpg";
+import heroBanner from "@/assets/hero-kaftan-1.jpg";
 import { useCatalogPageContent } from "@/hooks/usePageContent";
 
 const Collections = () => {
