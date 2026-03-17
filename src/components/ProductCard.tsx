@@ -41,10 +41,11 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
           <motion.img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-contain"
-            whileHover={{ scale: 1.06 }}
+            className="w-full h-full object-cover scale-110"
+            whileHover={{ scale: 1.15 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            loading="lazy"
+            loading="eager"
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
           
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-primary-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

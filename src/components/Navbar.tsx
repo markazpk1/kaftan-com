@@ -67,7 +67,7 @@ const Navbar = () => {
                   onMouseLeave={handleWhereToBuyLeave}
                 >
                   <span
-                    className={`font-body text-[10px] xl:text-xs tracking-[0.1em] xl:tracking-[0.15em] uppercase transition-colors duration-300 hover:text-primary cursor-pointer whitespace-nowrap ${
+                    className={`font-body text-[12px] xl:text-sm tracking-[0.1em] xl:tracking-[0.15em] uppercase transition-colors duration-300 hover:text-primary cursor-pointer whitespace-nowrap ${
                       location.pathname === link.to
                         ? "text-primary font-medium"
                         : "text-foreground"
@@ -146,7 +146,7 @@ const Navbar = () => {
                 <Link
                   key={link.label}
                   to={link.to}
-                  className={`font-body text-[10px] xl:text-xs tracking-[0.1em] xl:tracking-[0.15em] uppercase transition-colors duration-300 hover:text-primary whitespace-nowrap ${
+                  className={`font-body text-[12px] xl:text-sm tracking-[0.1em] xl:tracking-[0.15em] uppercase transition-colors duration-300 hover:text-primary whitespace-nowrap ${
                     location.pathname === link.to
                       ? "text-primary font-medium"
                       : "text-foreground"
@@ -278,7 +278,7 @@ const Navbar = () => {
                     <div key={link.label}>
                       <button
                         onClick={() => setMobileWhereToBuyOpen(!mobileWhereToBuyOpen)}
-                        className="font-body text-xs tracking-[0.15em] uppercase text-foreground w-full text-left"
+                        className="font-body text-sm tracking-[0.15em] uppercase text-foreground w-full text-left"
                       >
                         {link.label}
                       </button>
@@ -354,7 +354,7 @@ const Navbar = () => {
                       key={link.label}
                       to={link.to}
                       onClick={() => setMobileOpen(false)}
-                      className={`font-body text-xs tracking-[0.15em] uppercase ${
+                      className={`font-body text-sm tracking-[0.15em] uppercase ${
                         location.pathname === link.to
                           ? "text-primary font-medium"
                           : "text-foreground"
