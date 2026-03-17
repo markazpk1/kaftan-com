@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { slugify } from "@/lib/productUtils";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -22,7 +23,6 @@ interface ClearanceProduct {
   original_price?: number;
   image: string;
   category: string;
-  style?: string;
   color?: string;
   status: "Active" | "Draft" | "Archived";
   discount_percentage?: number;
@@ -77,10 +77,19 @@ const AdminClearance = () => {
         });
       } else {
         const clearanceProducts = data?.map(product => ({
-          ...product,
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          original_price: product.original_price,
+          image: product.images?.[0] || '',
+          category: product.category,
+          color: product.colors?.[0] || '',
+          status: (product.in_stock ? "Active" : "Archived") as "Active" | "Draft" | "Archived",
           discount_percentage: product.original_price && product.price > 0 
             ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
-            : 0
+            : 0,
+          sku: product.sku || '',
+          stock: product.stock || 0
         })) || [];
         setProducts(clearanceProducts);
       }
@@ -110,7 +119,8 @@ const AdminClearance = () => {
         status: form.status,
         discount_percentage: form.original_price && parseFloat(form.price) > 0
           ? Math.round(((parseFloat(form.original_price) - parseFloat(form.price)) / parseFloat(form.original_price)) * 100)
-          : 0
+          : 0,
+        slug: slugify(form.name)
       };
 
       if (editProduct) {
@@ -230,6 +240,7 @@ const AdminClearance = () => {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-background pb-mobile-nav">
       <AnnouncementBar />
       <Navbar />
@@ -533,6 +544,7 @@ const AdminClearance = () => {
         </motion.div>
       )}
     </AnimatePresence>
+    </>
   );
 };
 

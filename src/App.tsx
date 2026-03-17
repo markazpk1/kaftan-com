@@ -55,6 +55,7 @@ import { useAdminAuth } from "@/hooks/useAdminAuth";
 import AdminNotifications from "./pages/admin/AdminNotifications";
 import AdminSetup from "./pages/admin/AdminSetup";
 import RemovePrices from "./pages/admin/RemovePrices";
+import BuyClearance from "./pages/BuyClearance";
 
 const queryClient = new QueryClient();
 
@@ -164,6 +165,7 @@ const AnimatedRoutes = () => {
           <Route path="/paradise-collection" element={<PageTransition><ParadiseCollection /></PageTransition>} />
           <Route path="/new-arrivals" element={<PageTransition><NewArrivals /></PageTransition>} />
           <Route path="/sale" element={<PageTransition><Sale /></PageTransition>} />
+          <Route path="/clearance" element={<PageTransition><BuyClearance /></PageTransition>} />
           
           <Route path="/product/:slug" element={<PageTransition><ProductDetail /></PageTransition>} />
           <Route path="/checkout" element={<PageTransition><Checkout /></PageTransition>} />

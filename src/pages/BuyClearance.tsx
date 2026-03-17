@@ -21,10 +21,10 @@ interface ClearanceProduct {
   original_price?: number;
   image: string;
   category: string;
-  style?: string;
   color?: string;
-  status: "Active" | "Archived";
+  in_stock: boolean;
   discount_percentage?: number;
+  sku?: string;
 }
 
 const BuyClearance = () => {
@@ -45,9 +45,10 @@ const BuyClearance = () => {
       const { data, error } = await supabase
         .from('products')
         .select('*')
-        .or('status.eq.Archived,discount_percentage.gt.0')
-        .eq('status', 'Active')
-        .order(sortBy === 'discount-desc' ? 'discount_percentage.desc' : 'created_at.desc');
+        .eq('in_stock', true)
+        .not('original_price', 'is', null)
+        .gt('original_price', 0)
+        .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error fetching clearance products:', error);
@@ -58,13 +59,35 @@ const BuyClearance = () => {
         });
       } else {
         const clearanceProducts = data?.map(product => ({
-          ...product,
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          original_price: product.original_price,
+          image: product.images?.[0] || '',
+          category: product.category,
+          color: product.colors?.[0] || '',
+          in_stock: product.in_stock || false,
           discount_percentage: product.original_price && product.price > 0 
             ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
-            : 0
-        })) || [];
+            : 0,
+          sku: product.sku || ''
+        })).filter(product => product.original_price && product.price > 0 && product.price < product.original_price) || [];
         
-        setProducts(clearanceProducts);
+        // Sort client-side based on sortBy
+        const sortedProducts = [...clearanceProducts].sort((a, b) => {
+          switch (sortBy) {
+            case "discount-desc":
+              return (b.discount_percentage || 0) - (a.discount_percentage || 0);
+            case "price-asc":
+              return a.price - b.price;
+            case "price-desc":
+              return b.price - a.price;
+            default:
+              return 0;
+          }
+        });
+        
+        setProducts(sortedProducts);
         
         // Extract unique categories
         const uniqueCategories = Array.from(new Set(clearanceProducts.map(p => p.category)));
