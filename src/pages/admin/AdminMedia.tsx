@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Upload, Image as ImageIcon, Grid, List, Trash2, ZoomIn, Crop, Save } from "lucide-react";
+import { Upload, Image as ImageIcon, Grid, List, Trash2, ZoomIn, Crop, Save, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { mediaService, type MediaItem } from "@/lib/mediaService";
+import UpscaleDialog from "@/components/UpscaleDialog";
 
 const AdminMedia = () => {
   const [media, setMedia] = useState<MediaItem[]>([]);
@@ -16,6 +17,12 @@ const AdminMedia = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [dragActive, setDragActive] = useState(false);
   
+  // Upscale Dialog State
+  const [isUpscaleDialogOpen, setIsUpscaleDialogOpen] = useState(false);
+  const [upscaleImageUrl, setUpscaleImageUrl] = useState("");
+  const [upscaleImageName, setUpscaleImageName] = useState("");
+  const [upscaleMediaItem, setUpscaleMediaItem] = useState<MediaItem | undefined>();
+
   // Viewer & Crop State
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [viewerImageUrl, setViewerImageUrl] = useState("");
@@ -149,6 +156,13 @@ const AdminMedia = () => {
     }
   };
 
+  const openUpscaleDialog = (url: string, name: string, mediaItem?: MediaItem) => {
+    setUpscaleImageUrl(url);
+    setUpscaleImageName(name);
+    setUpscaleMediaItem(mediaItem);
+    setIsUpscaleDialogOpen(true);
+  };
+
   const closeImageViewer = () => {
     setIsViewerOpen(false);
     setViewerImageUrl("");
@@ -255,7 +269,6 @@ const AdminMedia = () => {
       window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDragging, imageRef]);
-
 
   // Replace the image (Updates same file)
   const saveCroppedImage = async () => {
@@ -364,6 +377,12 @@ const AdminMedia = () => {
     }
   };
 
+  // Refresh media list function
+  const refreshMedia = async () => {
+    const mediaData = await mediaService.getAllMedia();
+    setMedia(mediaData);
+  };
+
   return (
     <div className="space-y-6">
       {/* HEADER SECTION */}
@@ -427,6 +446,9 @@ const AdminMedia = () => {
                       <div className="flex gap-2">
                         <button onClick={(e) => { e.stopPropagation(); openImageViewer(m.url, m.name); }} className="p-2 bg-white rounded-full hover:bg-gray-200 transition-colors shadow-lg border border-gray-200">
                           <ZoomIn size={16} className="text-gray-700" />
+                        </button>
+                        <button onClick={(e) => { e.stopPropagation(); openUpscaleDialog(m.url, m.name, m); }} className="p-2 bg-blue-500 rounded-full hover:bg-blue-600 transition-colors shadow-lg border border-blue-600">
+                          <Wand2 size={16} className="text-white" />
                         </button>
                         <button onClick={(e) => { e.stopPropagation(); handleDelete(m); }} className="p-2 bg-red-500 rounded-full hover:bg-red-600 transition-colors shadow-lg border border-red-600">
                           <Trash2 size={16} className="text-white" />
@@ -566,6 +588,23 @@ const AdminMedia = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* UPSCALE DIALOG */}
+      <UpscaleDialog
+        isOpen={isUpscaleDialogOpen}
+        onClose={() => setIsUpscaleDialogOpen(false)}
+        imageUrl={upscaleImageUrl}
+        imageName={upscaleImageName}
+        mediaItem={upscaleMediaItem}
+        onUpscaleComplete={(upscaledUrl) => {
+          // Optionally refresh media list or update the specific item
+          console.log('Upscaled URL:', upscaledUrl);
+        }}
+        onMediaUpdated={() => {
+          // Refresh the media list after successful upscale
+          refreshMedia();
+        }}
+      />
     </div>
   );
 };

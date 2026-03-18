@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upscaling System Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .test-section { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .test-button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 10px 5px; }
+        .test-button:hover { background: #0056b3; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .log { background: #f8f9fa; border: 1px solid #e9ecef; padding: 10px; margin: 10px 0; border-radius: 4px; font-family: monospace; white-space: pre-wrap; }
+        img { max-width: 200px; margin: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Manual Upscaling System Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Cloudinary URL Generation</h2>
+        <button class="test-button" onclick="testCloudinary()">Test Cloudinary URLs</button>
+        <div id="cloudinary-result" class="result"></div>
+        
+        <h2>Test 2: Image Download Test</h2>
+        <button class="test-button" onclick="testDownload()">Test Image Download</button>
+        <div id="download-result" class="result"></div>
+        
+        <h2>Test 3: Complete Upscaling Flow</h2>
+        <button class="test-button" onclick="testCompleteFlow()">Test Complete Flow</button>
+        <div id="flow-result" class="result"></div>
+        
+        <h2>Console Logs</h2>
+        <div id="console-logs" class="log">Open browser console (F12) to see detailed logs...</div>
+    </div>
+
+    <script>
+        // Load the test script
+        const script = document.createElement('script');
+        script.src = './test-upscaling.js';
+        script.onload = function() {
+            console.log('Test script loaded');
+        };
+        document.head.appendChild(script);
+
+        function testCloudinary() {
+            console.log('🧪 Testing Cloudinary URL Generation...');
+            const result = document.getElementById('cloudinary-result');
+            
+            try {
+                // Test URL generation
+                const testUrl = 'https://res.cloudinary.com/dainvbpyo/image/upload/sample';
+                const upscaledUrl = `https://res.cloudinary.com/dainvbpyo/image/upload/q_auto,f_auto,w_1000,h_1000,c_auto/sample`;
+                
+                result.innerHTML = `<div class="success">✅ Cloudinary URL generated: <a href="${upscaledUrl}" target="_blank">${upscaledUrl}</a></div>`;
+                console.log('✅ Cloudinary URL test passed');
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Cloudinary test failed: ${error.message}</div>`;
+                console.error('❌ Cloudinary test failed:', error);
+            }
+        }
+
+        function testDownload() {
+            console.log('🧪 Testing Image Download...');
+            const result = document.getElementById('download-result');
+            
+            try {
+                // Test downloading from Cloudinary
+                const testUrl = 'https://res.cloudinary.com/dainvbpyo/image/upload/q_auto,f_auto,w_1000,h_1000,c_auto/sample';
+                
+                fetch(testUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        result.innerHTML = `<div class="success">✅ Download successful! Blob size: ${blob.size} bytes</div>`;
+                        console.log('✅ Download test passed, blob size:', blob.size);
+                        
+                        // Show image preview
+                        const img = document.createElement('img');
+                        img.src = URL.createObjectURL(blob);
+                        document.body.appendChild(img);
+                    })
+                    .catch(error => {
+                        result.innerHTML = `<div class="error">❌ Download failed: ${error.message}</div>`;
+                        console.error('❌ Download test failed:', error);
+                    });
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Test error: ${error.message}</div>`;
+                console.error('❌ Test error:', error);
+            }
+        }
+
+        function testCompleteFlow() {
+            console.log('🧪 Testing Complete Upscaling Flow...');
+            const result = document.getElementById('flow-result');
+            
+            if (window.testUpscaling) {
+                window.testUpscaling.testUpscalingFlow()
+                    .then(() => {
+                        result.innerHTML = `<div class="success">✅ Complete flow test successful! Check console for details.</div>`;
+                    })
+                    .catch(error => {
+                        result.innerHTML = `<div class="error">❌ Flow test failed: ${error.message}</div>`;
+                    });
+            } else {
+                result.innerHTML = `<div class="error">❌ Test script not loaded</div>`;
+            }
+        }
+
+        // Auto-update console logs
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            
+            // Also display in page
+            const logDiv = document.getElementById('console-logs');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.textContent = `[${timestamp}] ${args.join(' ')}`;
+            logDiv.appendChild(logEntry);
+            
+            // Auto-scroll to bottom
+            logDiv.scrollTop = logDiv.scrollHeight;
+        };
+    </script>
+</body>
+</html>

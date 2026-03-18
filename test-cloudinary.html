@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloudinary API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        img { max-width: 300px; height: auto; margin: 10px; border: 1px solid #ddd; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Cloudinary API Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Basic Connectivity</h2>
+        <p>Testing if Cloudinary account is accessible:</p>
+        <img src="https://res.cloudinary.com/dainvbpyo/image/upload/sample" alt="Basic Test" onload="this.nextElementSibling.innerHTML='✅ Basic connectivity working'" onerror="this.nextElementSibling.innerHTML='❌ Basic connectivity failed'">
+        <div class="result">Loading...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Upscale Transformation</h2>
+        <p>Testing upscaling with quality optimization:</p>
+        <img src="https://res.cloudinary.com/dainvbpyo/image/upload/q_auto,f_auto,w_1000,h_1000,c_auto/sample" alt="Upscale Test" onload="this.nextElementSibling.innerHTML='✅ Upscaling working'" onerror="this.nextElementSibling.innerHTML='❌ Upscaling failed'">
+        <div class="result">Loading...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Different Sizes</h2>
+        <p>Testing multiple upscale sizes:</p>
+        <div>
+            <h4>Small (500x500):</h4>
+            <img src="https://res.cloudinary.com/dainvbpyo/image/upload/q_auto,f_auto,w_500,h_500,c_auto/sample" alt="Small" onload="this.nextElementSibling.innerHTML='✅'" onerror="this.nextElementSibling.innerHTML='❌'">
+            <span class="result">Loading...</span>
+        </div>
+        <div>
+            <h4>Medium (1000x1000):</h4>
+            <img src="https://res.cloudinary.com/dainvbpyo/image/upload/q_auto,f_auto,w_1000,h_1000,c_auto/sample" alt="Medium" onload="this.nextElementSibling.innerHTML='✅'" onerror="this.nextElementSibling.innerHTML='❌'">
+            <span class="result">Loading...</span>
+        </div>
+        <div>
+            <h4>Large (1500x1500):</h4>
+            <img src="https://res.cloudinary.com/dainvbpyo/image/upload/q_auto,f_auto,w_1500,h_1500,c_auto/sample" alt="Large" onload="this.nextElementSibling.innerHTML='✅'" onerror="this.nextElementSibling.innerHTML='❌'">
+            <span class="result">Loading...</span>
+        </div>
+        <div>
+            <h4>Extra Large (2000x2000):</h4>
+            <img src="https://res.cloudinary.com/dainvbpyo/image/upload/q_auto,f_auto,w_2000,h_2000,c_auto/sample" alt="Extra Large" onload="this.nextElementSibling.innerHTML='✅'" onerror="this.nextElementSibling.innerHTML='❌'">
+            <span class="result">Loading...</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 4: Upload Test</h2>
+        <p>Testing upload functionality:</p>
+        <button onclick="testUpload()">Test Upload</button>
+        <div id="uploadResult">Click to test upload...</div>
+    </div>
+    
+    <script>
+        async function testUpload() {
+            const resultDiv = document.getElementById('uploadResult');
+            resultDiv.innerHTML = 'Testing upload...';
+            
+            try {
+                // Create a simple test image
+                const canvas = document.createElement('canvas');
+                canvas.width = 100;
+                canvas.height = 100;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#0066cc';
+                ctx.fillRect(0, 0, 100, 100);
+                
+                canvas.toBlob(async (blob) => {
+                    const formData = new FormData();
+                    formData.append('file', blob, 'test.png');
+                    formData.append('api_key', '548957641943123');
+                    formData.append('timestamp', Math.floor(Date.now() / 1000).toString());
+                    formData.append('public_id', `test_${Date.now()}`);
+                    
+                    const response = await fetch('https://api.cloudinary.com/v1_1/dainvbpyo/image/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.error) {
+                        resultDiv.innerHTML = `❌ Upload failed: ${data.error.message}`;
+                    } else {
+                        resultDiv.innerHTML = `✅ Upload successful! Public ID: ${data.public_id}`;
+                        // Show uploaded image
+                        const img = document.createElement('img');
+                        img.src = data.secure_url;
+                        img.style.maxWidth = '200px';
+                        resultDiv.appendChild(img);
+                    }
+                });
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Upload error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

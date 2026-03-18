@@ -48,13 +48,6 @@ const Index = () => {
 
   // Get featured products
   const featuredProducts = products.filter(p => p.featured && p.in_stock).map(convertToProduct);
-  
-  // Get new arrivals (latest products, limit to 8)
-  const newArrivals = products
-    .filter(p => p.in_stock)
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-    .slice(0, 8)
-    .map(convertToProduct);
 
   return (
     <div className="min-h-screen bg-background pb-mobile-nav">
@@ -66,17 +59,13 @@ const Index = () => {
         <HeroSection content={content.hero} slides={content.heroSlides} />
       )}
 
-      {isEnabled("newArrivals") && (
+      {isEnabled("featuredProducts") && (
         <ProductSection
-          id="new-arrivals"
-          title="New Arrivals"
-          products={newArrivals}
-          viewAllLink="/new-arrivals"
+          id="featured-products"
+          title="Featured Products"
+          products={featuredProducts}
+          viewAllLink="/featured"
         />
-      )}
-
-      {isEnabled("collectionBanner") && (
-        <CollectionBanner content={content.collectionBanner} image={content.collectionImage} />
       )}
 
       {isEnabled("about") && (
