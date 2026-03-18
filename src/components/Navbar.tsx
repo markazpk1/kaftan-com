@@ -16,9 +16,9 @@ const whereToBuyLinks = [
 
 const navLinks = [
   { label: "Home", to: "/" },
+  { label: "2026 Collection", to: "/collection-2026" },
   { label: "Safari Collection", to: "/safari-collection" },
   { label: "Paradise Collection", to: "/paradise-collection" },
-  { label: "2026 Collection", to: "/collection-2026" },
   { label: "Clearance", to: "/clearance" },
   { label: "Where to Buy", to: "/shop" },
   { label: "Contact Us", to: "/contact-us" },
@@ -57,7 +57,7 @@ const Navbar = () => {
           </Link>
 
           {/* Nav Links */}
-          <nav className="flex items-center gap-3 xl:gap-5 ml-2 xl:ml-4">
+          <nav className="flex items-center gap-2 xl:gap-3 ml-2 xl:ml-3">
             {navLinks.map((link) =>
               link.label === "Where to Buy" ? (
                 <div
@@ -67,7 +67,7 @@ const Navbar = () => {
                   onMouseLeave={handleWhereToBuyLeave}
                 >
                   <span
-                    className={`font-body text-[12px] xl:text-sm tracking-[0.1em] xl:tracking-[0.15em] uppercase transition-colors duration-300 hover:text-primary cursor-pointer whitespace-nowrap ${
+                    className={`font-body text-[10px] xl:text-[11px] tracking-[0.05em] xl:tracking-[0.08em] uppercase transition-colors duration-300 hover:text-primary cursor-pointer whitespace-nowrap ${
                       location.pathname === link.to
                         ? "text-primary font-medium"
                         : "text-foreground"
@@ -146,7 +146,7 @@ const Navbar = () => {
                 <Link
                   key={link.label}
                   to={link.to}
-                  className={`font-body text-[12px] xl:text-sm tracking-[0.1em] xl:tracking-[0.15em] uppercase transition-colors duration-300 hover:text-primary whitespace-nowrap ${
+                  className={`font-body text-[10px] xl:text-[11px] tracking-[0.05em] xl:tracking-[0.08em] uppercase transition-colors duration-300 hover:text-primary whitespace-nowrap ${
                     location.pathname === link.to
                       ? "text-primary font-medium"
                       : "text-foreground"

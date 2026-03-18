@@ -111,67 +111,11 @@ const BestSellersSection = () => {
               ))}
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-center"
-            >
-              <Link
-                to="/shop?sort=bestsellers"
-                className="inline-flex items-center gap-2 font-body text-sm tracking-[0.2em] uppercase text-foreground hover:text-primary transition-colors duration-300 border-b border-foreground hover:border-primary pb-1"
-              >
-                <TrendingUp size={16} />
-                Shop All Best Sellers
-              </Link>
-            </motion.div>
-          </>
+                      </>
         )}
 
         {/* Customer testimonials mini section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 pt-16 border-t border-border"
-        >
-          <div className="text-center mb-8">
-            <h3 className="font-heading text-2xl font-light text-foreground mb-4">
-              What Our Customers Say
-            </h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { name: "Sarah M.", rating: 5, comment: "Absolutely love my kaftan! The quality is exceptional." },
-              { name: "Jennifer L.", rating: 5, comment: "Perfect for my vacation. Got so many compliments!" },
-              { name: "Maria K.", rating: 5, comment: "Beautiful design and comfortable fit. Highly recommend!" }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                className="text-center p-6 bg-background rounded-lg border border-border"
-              >
-                <div className="flex justify-center gap-1 mb-3">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="font-body text-sm text-muted-foreground mb-3 italic">
-                  "{testimonial.comment}"
-                </p>
-                <p className="font-body text-xs font-medium text-foreground">
-                  {testimonial.name}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
+              </div>
     </section>
   );
 };

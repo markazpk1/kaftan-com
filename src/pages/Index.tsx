@@ -8,10 +8,8 @@ import AboutBrand from "@/components/AboutBrand";
 import Footer from "@/components/Footer";
 import NewArrivalsSection from "@/components/NewArrivalsSection";
 import BestSellersSection from "@/components/BestSellersSection";
-import PromotionalBanner from "@/components/PromotionalBanner";
 import BrandStorySection from "@/components/BrandStorySection";
 import SocialProofSection from "@/components/SocialProofSection";
-import NewsletterSection from "@/components/NewsletterSection";
 import { productService } from "@/lib/productService";
 import { useHomePageContent, isSectionEnabled } from "@/hooks/usePageContent";
 import type { Product as DBProduct } from "@/lib/productService";
@@ -68,24 +66,10 @@ const Index = () => {
       {/* Professional E-commerce Sections */}
       <NewArrivalsSection />
       <BestSellersSection />
-      <PromotionalBanner />
       <BrandStorySection />
       <SocialProofSection />
-      <NewsletterSection />
-
+      
       {/* Original sections (keeping for compatibility) */}
-      {isEnabled("featuredProducts") && (
-        <ProductSection
-          id="featured-products"
-          title="Featured Products"
-          products={featuredProducts}
-          viewAllLink="/featured"
-        />
-      )}
-
-      {isEnabled("about") && (
-        <AboutBrand content={content.about} image={content.aboutImage} />
-      )}
       {isEnabled("footer") && (
         <Footer content={content.footer} />
       )}

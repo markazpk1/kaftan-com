@@ -103,7 +103,7 @@ const BrandStorySection = () => {
               className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-6 rounded-lg shadow-lg"
             >
               <div className="text-center">
-                <div className="font-heading text-3xl font-light mb-1">10+</div>
+                <div className="font-heading text-3xl font-light mb-1">20+</div>
                 <div className="font-body text-sm">Years of Excellence</div>
               </div>
             </motion.div>
@@ -111,72 +111,9 @@ const BrandStorySection = () => {
         </div>
 
         {/* Values grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <h3 className="font-heading text-2xl font-light text-foreground text-center mb-12">
-            Our Values
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                className="text-center group"
-              >
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors duration-300">
-                  <value.icon size={24} className="text-primary" />
-                </div>
-                <h4 className="font-heading text-lg font-light text-foreground mb-3">
-                  {value.title}
-                </h4>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                  {value.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
+        
         {/* Call to action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 text-center"
-        >
-          <div className="bg-gradient-to-r from-primary/5 to-secondary/10 rounded-lg p-8 border border-border">
-            <h3 className="font-heading text-xl font-light text-foreground mb-4">
-              Join Our Community
-            </h3>
-            <p className="font-body text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Be part of a movement that celebrates craftsmanship, sustainability, and timeless elegance. Follow our journey and get exclusive insights into our design process.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="/contact-us"
-                className="bg-primary text-primary-foreground px-6 py-3 font-body text-sm tracking-[0.2em] uppercase hover:bg-primary/90 transition-colors duration-300"
-              >
-                Get in Touch
-              </Link>
-              <Link
-                to="/collections"
-                className="border border-border px-6 py-3 font-body text-sm tracking-[0.2em] uppercase hover:border-primary hover:text-primary transition-all duration-300"
-              >
-                Explore Collections
-              </Link>
-            </div>
-          </div>
-        </motion.div>
-      </div>
+              </div>
     </section>
   );
 };

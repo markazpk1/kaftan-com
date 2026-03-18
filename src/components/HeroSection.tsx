@@ -93,70 +93,8 @@ const HeroSection = ({ content, slides }: Props) => {
         style={{ opacity }}
       >
         <div className="text-center max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-4"
-          >
-            <div className="flex items-center justify-center gap-1 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
-              ))}
-              <span className="ml-2 text-white/90 text-sm font-body">4.9/5 from 2,847 reviews</span>
-            </div>
-          </motion.div>
-          
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-heading text-4xl md:text-6xl lg:text-7xl font-light text-white mb-6 leading-tight"
-          >
-            <span className="block">{titleLine1}</span>
-            <span className="block">{titleLine2}</span>
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="font-body text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed"
-          >
-            {subtitle}
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Link
-              to={ctaLink}
-              className="group bg-white text-black px-8 py-4 font-body text-sm tracking-[0.2em] uppercase hover:bg-gray-100 transition-all duration-300 flex items-center gap-2"
-            >
-              {ctaText}
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/collections"
-              className="border border-white text-white px-8 py-4 font-body text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300"
-            >
-              View Collections
-            </Link>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-8 text-white/80 text-sm font-body"
-          >
-            <p>✓ Free Shipping on Orders Over $150</p>
-            <p>✓ 30-Day Return Policy</p>
-          </motion.div>
-        </div>
+                    
+                  </div>
       </motion.div>
 
       {/* Slide indicators */}
