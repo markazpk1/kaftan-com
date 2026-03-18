@@ -41,7 +41,7 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
           <motion.img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             loading="eager"

@@ -7,7 +7,7 @@ export interface Product {
   original_price?: number;
   image: string;
   images?: string[];
-  badge?: "New in" | "Sold out";
+  badge?: "New in" | "Sold out" | "Sale";
   category: string;
   style?: string;
   color?: string;
